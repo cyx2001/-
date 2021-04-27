@@ -1,5 +1,5 @@
 <template>
-  <div class="search-list-page">
+  <div class="search-list-page" ref="searchList">
     <div class="search-list">
       <div class="song-list-backtop" @click="backTop" v-show="isShowBackTop">
         <img src="@/assets/backtop.svg" width="30px" />
@@ -24,14 +24,14 @@
               : '') || (selectSongIndex === index ? selectSongStyle : '')
           "
         >
-          <div class="mark-img" v-if="isShowMarkImg">
+          <div class="mark-img" >
             <img
               :src="setMarkImgUrl(item)"
               @click="removeMarkSong(index)"
               width="18px"
             />
           </div>
-          <div class="like-img" v-else>
+          <div class="like-img" >
             <img
               :src="setLikeImgUrl(item)"
               @click="likeSong(item)"
@@ -64,7 +64,7 @@ export default {
       markedImgUrl: require("@/assets/marked.svg"),
       scrollerPosition: 0,
       isShowBackTop: false,
-      playingSongStyle: {
+      playingSongStyle: { 
         "background-color": "var(--highlight-color)",
         "border-radius": "10px",
       },
@@ -75,6 +75,10 @@ export default {
       },
     };
   },
+  activated() {
+    //重新进入页面后，保持原来的滚动位置
+    this.$refs.songListBoxDOM.scrollTop = this.scrollerPosition;
+  },
   computed: {
     ...mapState([
       "searchList",
@@ -82,14 +86,14 @@ export default {
       "currentListIndex",
       "likedList",
       "markList",
-      "loadMoreText",
     ]),
   },
   methods: {
     playThisSong(item, index) {
       let payload = {
         index: index,
-        list: this.list,
+        list: searchList,
+        activatedPage: "SearchPage",
       };
 
       //将用户点击的歌曲index连带歌单一起发送至vuex
@@ -141,6 +145,7 @@ export default {
           clearInterval(timer);
         }
       }, 10);
+      this.$refs.searchListBoxDom.scrollTop = 0;
     }, //监听页面滚动事件
     scroll(e) {
       //当滑块滑动到一定距离一键回顶才出现
@@ -162,10 +167,6 @@ export default {
         positionX: e.pageX,
         positionY: e.pageY,
       });
-    },
-
-    loadMore() {
-      this.$store.commit("handleLoadMore");
     },
   },
 };

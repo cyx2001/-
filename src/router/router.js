@@ -7,13 +7,16 @@ const SearchPage = () =>
     import ('../components/mdbox/router-view/searchPage/searchPage.vue')
 Vue.use(VueRouter)
 const routes = [{
+    path: '*',
+    redirect: '/discoverPage',
+}, {
     name: '发现',
     path: '/discoverPage',
     components: {
         nav: DiscoverPage
     }
 }, {
-    name: '发现',
+    name: '搜索',
     path: '/searchPage',
     components: {
         nav: SearchPage

@@ -14,8 +14,10 @@ export default new Vuex.Store({
         searchtext: '', //用户搜索内容
         discoverList: [], //发现歌单
         likedList: [], //喜欢歌单
+        markList: [], //收藏歌单
         lyric: [], //歌词
         isSearchPageBlur: false, //搜索页面是否模糊
+
     },
     mutations: {
         sendCurrentIndex(state, payload) {
@@ -84,13 +86,50 @@ export default new Vuex.Store({
                 this.commit('albumRotatePaused')
             })
         },
+        sendLikedSong(state, item) {
+
+            let isThisSongLiked = false
+            let likedSongIndex = null
+
+            //检测当前歌曲是否已在喜欢的列表中
+            state.likedList.forEach((likedItem, index) => {
+                if (likedItem.songmid === item.songmid) {
+                    isThisSongLiked = true
+                    likedSongIndex = index
+                }
+            })
+
+            if (isThisSongLiked === false) {
+
+                //喜欢列表没有此歌曲，则加入喜欢列表
+                state.likedList.unshift(item)
+
+            } else {
+
+                //喜欢列表已有此歌曲，则将此歌曲从喜欢列表移除
+                state.likedList.splice(likedSongIndex, 1)
+
+            }
+
+            localStorage.setItem('likedList', JSON.stringify(state.likedList))
+        },
+        //收藏歌曲只能从收藏页面移除
+        removeMarkSong(state, songIndex) {
+            state.markList[state.markListIndex].list.splice(songIndex, 1)
+            Message({
+                showClose: true,
+                type: 'success',
+                message: "已将此歌曲从收藏列表移除"
+            });
+            localStorage.setItem('markList', JSON.stringify(state.markList))
+        },
         handleDiscoverList(state) {
             getDiscoverList().then(res => {
-                console.log(res)
+                //console.log(res)
                 state.discoverList = res.data.data.list
 
             }).catch(err => {
-                console.log(err)
+                //console.log(err)
                 Message({
                     showClose: true,
                     type: 'error',
@@ -108,15 +147,11 @@ export default new Vuex.Store({
             state.searchText = searchText
             getSearchList(state.searchText, 1)
                 .then(res => {
-
                     let searchList = res.data.data.list
-
-                    //有一些无id歌曲，将其剔除掉。因为没id根本无法得到歌曲资源
+                        //有一些无id歌曲，将其剔除掉。因为没id根本无法得到歌曲资源
                     state.searchList = searchList.filter(item => item.songmid.length === 14)
-
                     console.log(state.searchList)
-
-                    //搜索后再显示loadMore
+                        //搜索后再显示loadMore
                     state.haveSearched = true
                 })
                 .catch(err => {
