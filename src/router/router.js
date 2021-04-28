@@ -5,6 +5,8 @@ const DiscoverPage = () =>
     import ('../components/mdbox/router-view/discoverPage/discoverPage.vue')
 const SearchPage = () =>
     import ('../components/mdbox/router-view/searchPage/searchPage.vue')
+const LikedPage = () =>
+    import ('../components/mdbox/router-view/likedPage/likedPage.vue')
 Vue.use(VueRouter)
 const routes = [{
     path: '*',
@@ -20,6 +22,12 @@ const routes = [{
     path: '/searchPage',
     components: {
         nav: SearchPage
+    }
+}, {
+    name: '喜欢歌单',
+    path: '/likedPage',
+    components: {
+        nav: LikedPage
     }
 }, ]
 

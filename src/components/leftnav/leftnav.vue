@@ -15,6 +15,10 @@
          <img class="nav-icon" src="@/assets/search.svg" />
         <div class="nav-text">搜索</div>
       </router-link>
+       <router-link to="/likedPage" class="nav-item">
+         <img class="nav-icon" src="@/assets/like.svg" />
+        <div class="nav-text">喜欢歌单</div>
+      </router-link>
     </div>
     <div class="playing-box">
       <div class="album-img-box">

@@ -15,6 +15,6 @@ export default {
 <style>
 .view-box {
   width: 100%;
-  height: 670px;
+  height: 680px;
 }
 </style>

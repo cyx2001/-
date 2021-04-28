@@ -1,5 +1,5 @@
 <template>
-  <div class="search-list-page" ref="searchList">
+  <div class="search-list-page" ref="searchList"  :class="{ blur: isSearchPageBlur }">
     <div class="search-list">
       <div class="song-list-backtop" @click="backTop" v-show="isShowBackTop">
         <img src="@/assets/backtop.svg" width="30px" />
@@ -86,6 +86,7 @@ export default {
       "currentListIndex",
       "likedList",
       "markList",
+      "isSearchPageBlur"
     ]),
   },
   methods: {
