@@ -11,6 +11,10 @@
          <img class="nav-icon" src="@/assets/discover.svg" />
         <div class="nav-text">发现</div>
       </router-link>
+      <router-link to="/lyricPage" class="nav-item">
+         <img class="nav-icon" src="@/assets/lyric.svg" />
+        <div class="nav-text">歌词</div>
+      </router-link>
        <router-link to="/searchPage" class="nav-item">
          <img class="nav-icon" src="@/assets/search.svg" />
         <div class="nav-text">搜索</div>
@@ -19,7 +23,12 @@
          <img class="nav-icon" src="@/assets/like.svg" />
         <div class="nav-text">喜欢歌单</div>
       </router-link>
+        <router-link to="/markPage" class="nav-item">
+         <img class="nav-icon" src="@/assets/mark.svg" />
+        <div class="nav-text">收藏</div>
+      </router-link>
     </div>
+    
     <div class="playing-box">
       <div class="album-img-box">
           <album-img></album-img>

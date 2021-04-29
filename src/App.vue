@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="app-background">
-     
+     <back-ground></back-ground>
     </div>
     <div class="app-background-above">
       <left-nav></left-nav>
@@ -13,11 +13,13 @@
 <script>
 import MiddleBox from "./components/mdbox/mdbox";
 import LeftNav from "./components/leftnav/leftnav";
+import BackGround from "./common/background"
 export default {
   name: "app",
   components: {
    LeftNav,
    MiddleBox,
+   BackGround,
   },
 };
 </script>

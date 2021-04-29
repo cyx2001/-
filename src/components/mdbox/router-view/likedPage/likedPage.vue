@@ -1,13 +1,18 @@
 <template>
   <div class="liked-list-page">
-    xi
+    <song-list :list="likedList"></song-list>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import SongList from "../../../../common/songlist";
 
 export default {
+  name: "liked-list-page",
+  components: {
+    SongList,
+  },
   data() {
     return {};
   },

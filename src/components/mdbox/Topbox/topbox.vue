@@ -1,15 +1,17 @@
 <template>
-  <div class="top">
-    <div class="input">
+  <div class="top-box">
+    <div class="input-box">
       <input
         type="text"
         class="search-input"
-        placeholder="搜索音乐"
         v-model.trim="searchText"
         @change="searchSong"
+        placeholder="搜索音乐"
+        @focus="showSearchHistory"
+        @blur="hideSearchHistory"
         @input="isShowSearchHistory = true"
       />
-     <div class="search-history-box" v-show="isShowSearchHistory">
+      <div class="search-history-box" v-show="isShowSearchHistory">
         <div
           class="search-history-item"
           v-for="(item, index) in searchHistoryArr"
@@ -24,16 +26,17 @@
             </div>
           </div>
         </div>
-    </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  name: "top-box",
   data() {
     return {
-     searchText: "",
+      searchText: "",
       searchHistoryArr: [],
       isShowSearchHistory: false,
       isDeletingSearchText: false,
@@ -48,6 +51,7 @@ export default {
   methods: {
     searchSong() {
       this.isShowSearchHistory = false;
+      this.$forceUpdate();
       if (this.searchText !== "") {
         //防止无输入搜索
         this.$router.push("SearchPage");
@@ -148,21 +152,21 @@ export default {
 </script>
 
 <style>
-.top {
+.top-box {
   width: 100%;
   height: 50px;
   position: relative;
 }
 
-.input {
+.input-box {
   position: absolute;
   width: 400px;
   height: 30px;
   float: left;
-  left:50%;
-  margin-left: -200px;
+  margin-left: 150px;
   margin-top: 10px;
 }
+
 .search-input {
   border: none;
   width: 400px;
@@ -179,6 +183,7 @@ export default {
   box-shadow: 0 0 5px var(--highlight-deep-color);
   background-color: rgba(255, 255, 255, 0.6);
 }
+
 .search-history-box {
   width: 400px;
   max-height: 100px;
@@ -191,5 +196,51 @@ export default {
   border-radius: 10px;
   background-color: var(--background-color);
   box-shadow: 0 0 5px var(--highlight-deep-color);
+}
+
+.search-history-item {
+  height: 20px;
+  float: left;
+  margin-left: 5px;
+  margin-top: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px var(--highlight-deep-color);
+}
+
+.search-history-item:last-child {
+  margin-bottom: 10px;
+}
+
+.search-history-item:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.search-history-item:active {
+  transform: scale(1.2);
+}
+
+.search-history-block-text {
+  float: left;
+  margin-left: 5px;
+  line-height: 20px;
+  font-size: 14px;
+}
+
+.delete-this-search-text {
+  width: 20px;
+  height: 20px;
+  float: left;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+}
+
+.delete-this-search-text:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.delete-this-search-text:active {
+  transform: scale(1.5);
 }
 </style>

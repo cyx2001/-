@@ -7,6 +7,10 @@ const SearchPage = () =>
     import ('../components/mdbox/router-view/searchPage/searchPage.vue')
 const LikedPage = () =>
     import ('../components/mdbox/router-view/likedPage/likedPage.vue')
+const lyricPage = () =>
+    import ('../components/mdbox/router-view/lyricpage/lyricpage.vue')
+const markPage = () =>
+    import ('../components/mdbox/router-view/markpage/markpage.vue')
 Vue.use(VueRouter)
 const routes = [{
     path: '*',
@@ -28,6 +32,18 @@ const routes = [{
     path: '/likedPage',
     components: {
         nav: LikedPage
+    }
+}, {
+    name: '歌词',
+    path: '/lyricPage',
+    components: {
+        nav: lyricPage
+    }
+}, {
+    name: '歌词',
+    path: '/markPage',
+    components: {
+        nav: markPage
     }
 }, ]
 

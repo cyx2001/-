@@ -18,6 +18,7 @@ export default new Vuex.Store({
         markList: [], //收藏歌单
         markListIndex: 0,
         lyric: [], //歌词
+        isInputFocus: false, //用户是否正在输入，用于决定是否移除快捷键监听
         isSearchPageBlur: false, //搜索页面是否模糊
         selectedSong: {}, //被选中的歌曲，用于暂存需要收藏的歌曲
         currentTime: null, //当前歌曲正在播放的时刻
@@ -25,6 +26,15 @@ export default new Vuex.Store({
         albumImgRotateStyle: {}, //控制专辑图片旋转
     },
     mutations: {
+        getHistoryData(state) {
+            if (localStorage.hasOwnProperty('likedList')) {
+                state.likedList = JSON.parse(localStorage.getItem('likedList'))
+            }
+
+            if (localStorage.hasOwnProperty('markList')) {
+                state.markList = JSON.parse(localStorage.getItem('markList'))
+            }
+        },
         sendCurrentIndex(state, payload) {
             state.currentListIndex = payload.index
                 //将点击歌曲所在的歌单复制一份给当前歌单
@@ -233,7 +243,10 @@ export default new Vuex.Store({
                     this.commit('albumRotatePaused')
                 }
             }
-        }
+        },
+        sendInputFocus(state, isInputFocus) {
+            state.isInputFocus = isInputFocus
+        },
     },
     actions: {},
     modules: {}
